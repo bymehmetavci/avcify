@@ -1,0 +1,5 @@
+package com.avcify.ws.configuration;
+
+public class SecurityConfiguration {
+
+}

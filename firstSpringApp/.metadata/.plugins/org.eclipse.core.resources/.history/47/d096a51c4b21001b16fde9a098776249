@@ -1,0 +1,13 @@
+package com.avcify.ws;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AvcifyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(AvcifyApplication.class, args);
+	}
+
+}
