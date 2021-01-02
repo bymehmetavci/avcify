@@ -1,0 +1,5 @@
+package com.avcify.ws.user;
+
+public interface UniqueEmail {
+
+}

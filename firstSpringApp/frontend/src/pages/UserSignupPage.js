@@ -11,6 +11,7 @@ class UserSignupPage extends React.Component {
     state = {
         username: null,
         displayName: null,
+        email: null,
         password: null,
         passwordRepeat: null,
         errors: {}
@@ -36,12 +37,13 @@ class UserSignupPage extends React.Component {
     };
     onClickedSignUp = async event => {
         event.preventDefault();
-        const {username, displayName, password} = this.state;
+        const {username, displayName, email, password} = this.state;
         const {history, dispatch} = this.props;
         const {push} = history;
         const body = {
            username,
            displayName,
+           email,
            password
         }
         try {
@@ -55,7 +57,7 @@ class UserSignupPage extends React.Component {
     }
     render() {
         const {errors} = this.state;
-        const {username, displayName, password, passwordRepeat} = errors;
+        const {username, displayName, email, password, passwordRepeat} = errors;
         const { t, pendingApiCall } = this.props;
         return(
             <div className="container">
@@ -63,6 +65,7 @@ class UserSignupPage extends React.Component {
                 <form>
                     <Input name="username" label={t("Username")} error={username} onChange={this.onChange} />
                     <Input name="displayName" label={t("Display Name")} error={displayName} onChange={this.onChange} />
+                    <Input name="email" label={t("Email")} error={email} onChange={this.onChange} />
                     <Input name="password" label={t("Password")} error={password} onChange={this.onChange} type="password" />
                     <Input name="passwordRepeat" label={t("Password Repeat")} error={passwordRepeat} onChange={this.onChange} type="password" />
                     <div className="text-center">

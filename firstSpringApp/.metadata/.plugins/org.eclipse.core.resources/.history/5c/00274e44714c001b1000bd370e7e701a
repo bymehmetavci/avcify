@@ -1,0 +1,5 @@
+avcify.constraints.username.NotNull.message = Kullan\u0131c\u0131 ad\u0131 bo\u015F olamaz!
+avcify.constraints.email.NotNull.message = E-Posta adresi bo\u015F olamaz!
+avcify.constraints.email.NotAvailableEmail.message = Hatal\u0131 e-posta adresi girdiniz!
+avcify.constraints.password.Pattern.message = \u015Eifrenizde en az bir b\u00fcy\u00fck harf, bir k\u00fc\u00e7\u00fck harf ve bir say\u0131 olmak zorundad\u0131r.
+avcify.constraints.username.UniqueUsername.message = Bu kullan\u0131c\u0131 ad\u0131 kullan\u0131lmaktad\u0131r.

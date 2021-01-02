@@ -7,6 +7,7 @@ class AuthenticationContext extends Component {
         isLoggedIn : false,
         username: undefined,
         displayName: undefined,
+        email: undefined,
         image: undefined,
         password: undefined
     };
