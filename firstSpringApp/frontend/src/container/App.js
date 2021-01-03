@@ -6,36 +6,29 @@ import HomePage from '../pages/HomePage';
 import UserPage from '../pages/UserPage';
 import { HashRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Topbar from '../components/Topbar';
-import { connect } from "react-redux";
-//import { Authentication } from "../shared/AuthenticationContext";
+import { useSelector } from "react-redux";
 
-class App extends React.Component {
-  //static contextType = Authentication;
-  render() {
-    const {isLoggedIn} = this.props; //this.context.state.isLoggedIn;
-    return (
-      <>
-        <Router>
-          <Topbar/>
-          <Switch>
-            <Route exact path="/" component={HomePage}/ >
-            {!isLoggedIn && <Route 
-              path="/login" 
-              component={LoginPage}
-            />}
-            <Route path="/signup" component={UserSignupPage} />
-            <Route  path="/user/:username" component={UserPage} />
-            <Redirect to="/" />
-          </Switch>
-        </Router>
-        <LanguageSelector />
-      </>
-    );
-  }
-}
-const mapStateToProps = (store) => {
-    return {
-        isLoggedIn: store.isLoggedIn
-    }
+const App = () => {
+  const {isLoggedIn} = useSelector((store)=>({
+    isLoggedIn: store.isLoggedIn
+  }));
+  return (
+    <>
+      <Router>
+        <Topbar/>
+        <Switch>
+          <Route exact path="/" component={HomePage}/ >
+          {!isLoggedIn && <Route 
+            path="/login" 
+            component={LoginPage}
+          />}
+          <Route path="/signup" component={UserSignupPage} />
+          <Route  path="/user/:username" component={UserPage} />
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+      <LanguageSelector />
+    </>
+  );
 };
-export default connect(mapStateToProps)(App);
+export default App;
