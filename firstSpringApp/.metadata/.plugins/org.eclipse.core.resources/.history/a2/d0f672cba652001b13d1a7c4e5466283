@@ -1,0 +1,29 @@
+package com.avcify.ws.user;
+
+import java.util.List;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserService {
+	
+	UserRepository userRepository;
+	PasswordEncoder passwordEncoder;
+	
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	public void save(User user) {
+		String encrptedPassword = this.passwordEncoder.encode(user.getPassword());
+		user.setPassword(encrptedPassword);
+		userRepository.save(user);
+	}
+
+	public List<User> getUsers() {
+		return userRepository.findAll();
+	}
+	
+}

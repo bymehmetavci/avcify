@@ -18,7 +18,7 @@ export const loginHandler = (credentials) => {
         const authState = {
             ...response.data,
             password: credentials.password
-        }
+        };
         dispatch(loginSuccess(authState));
         return response;
     }

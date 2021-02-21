@@ -7,7 +7,10 @@ export const useApiProgress = (apiPath) => {
     useEffect (()=>{
         let requestInterceptor, responseInterceptor;
         const updateApiCallFor = (url, inProgress) => {
-            if(url === apiPath) {
+            /*if(url === apiPath) {
+                setPendingApiCall(inProgress);
+            }*/
+            if(url.startsWith(apiPath)) {
                 setPendingApiCall(inProgress);
             }
         };
@@ -30,13 +33,13 @@ export const useApiProgress = (apiPath) => {
         const unregisterInterceptors = () => {
             axios.interceptors.request.eject(requestInterceptor);
             axios.interceptors.response.eject(responseInterceptor);
-        }
+        };
         registerInterceptors();
 
         return function unmount() {
             unregisterInterceptors();
-        }
-    });
+        };
+    }, [apiPath]);
 
     return pendingApiCall;
 }

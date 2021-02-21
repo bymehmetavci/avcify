@@ -2,6 +2,7 @@ import { createStore,applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import authReducer from "./authReducer";
 import SecureLS from "secure-ls";
+import { setAuthorizationHeader } from "../api/apiCalls";
 
 const secureLs = new SecureLS();
 
@@ -18,24 +19,23 @@ const getStateFromStorage = () => {
 
     if(avcAuth) {
         return avcAuth;
-        /*try {
-            stateInLocalStorage = JSON.parse(avcAuth);
-        } catch(error) {} */
     }
     return stateInLocalStorage;
 };
 
 const updateStateInStorage = newState => {
     secureLs.set('avc-auth', newState);
-    //localStorage.setItem('avc-auth', JSON.stringify(newState));
 }
 
 const configureStore = () => {
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() ==> Chrome Redux Dev Tool
+    const initialState = getStateFromStorage();
+    setAuthorizationHeader(initialState);
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    const store = createStore(authReducer, getStateFromStorage(), composeEnhancers(applyMiddleware(thunk)));
+    const store = createStore(authReducer, initialState, composeEnhancers(applyMiddleware(thunk)));
+    
     store.subscribe(()=>{
         updateStateInStorage(store.getState());
+        setAuthorizationHeader(store.getState());
     })
     return store;
 }
