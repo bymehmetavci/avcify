@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -35,7 +36,7 @@ public class User implements UserDetails{
 	private String username;
 	
 	@NotNull
-	@Size(min = 4, max=16)
+	@Size(min = 4, max=255)
 	private String displayName;
 	
 	@NotNull(message = "{avcify.constraints.email.NotNull.message}")

@@ -13,6 +13,7 @@ public class WsApplication {
 	/**
 	 * Initiliaze users
 	@Bean
+	@Profile("dev")
 	CommandLineRunner createInitialUsers(UserService userService) {
 		return (args) -> {
 			for (int i = 1; i<=30; i++) {

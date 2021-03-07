@@ -1,16 +1,16 @@
 import React from 'react';
 
 const ButtonWithProgress = (props) => {
-    const { onClick, pendingApiCall, disabled, text } = props;
+    const { onClick, pendingApiCall, disabled, text, className } = props;
     return (
         <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={disabled}
+            className= {className || "btn btn-primary"}
             onClick={onClick}
+            type="submit"
+            disabled={disabled}
         >
             {pendingApiCall && <span className="spinner-border spinner-border-sm"></span>}
-                {text}
+            {text}
         </button>
     );
 };

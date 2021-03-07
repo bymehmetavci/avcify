@@ -14,4 +14,16 @@ spring:
       pageable:
         default-page-size: 10
         max-page-size: 100
-         
+  profiles:
+    active:
+    - dev
+---
+spring:
+  profiles: production
+avcify:
+  upload-path: picture-storage
+---
+spring:
+  profiles: dev
+avcify:
+  upload-path: storage-dev

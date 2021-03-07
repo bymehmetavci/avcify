@@ -5,15 +5,18 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avcify.ws.shared.CurrentUser;
 import com.avcify.ws.shared.GenericResponse;
+import com.avcify.ws.user.wm.UserUpdateVM;
 import com.avcify.ws.user.wm.UserVM;
 
 @RestController
@@ -37,6 +40,12 @@ public class UserController {
 	@GetMapping("/users/{username}")
 	UserVM getUser(@PathVariable String username) {
 		User user = userService.getByUsername(username);
+		return new UserVM(user);
+	}
+	@PutMapping("/users/{username}")
+	@PreAuthorize("#username == principal.username")
+	UserVM updateUser(@Valid @RequestBody UserUpdateVM updatedUser, @PathVariable String username) {
+		User user = userService.updateUser(username, updatedUser);
 		return new UserVM(user);
 	}
 }
