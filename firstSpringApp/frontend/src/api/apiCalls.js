@@ -28,6 +28,22 @@ export const updateUser = (username, body) => {
 };
 export const postAnnouncement = announce => {
     return axios.post('/api/1.0/announcements', announce);
+};
+export const getAnnouncements = (username, page = 0) => {
+    const path = username ? `/api/1.0/users/${username}/announcements?page=` : '/api/1.0/announcements?page=';
+    return axios.get(path + page);
+};
+export const getOldAnnouncements = (id, username) => {
+    const path = username ? `/api/1.0/users/${username}/announcements/${id}` : `/api/1.0/announcements/${id}`;
+    return axios.get(path);
+};
+export const getNewAnnounceCount = (id, username) => {
+    const path = username ? `/api/1.0/users/${username}/announcements/${id}?count=true` : `/api/1.0/announcements/${id}?count=true`;
+    return axios.get(path);
+};
+export const getNewAnnouncements = (id, username) => {
+    const path = username ? `/api/1.0/users/${username}/announcements/${id}?direction=after` : `/api/1.0/announcements/${id}?direction=after`
+    return axios.get(path);
 }
 
 

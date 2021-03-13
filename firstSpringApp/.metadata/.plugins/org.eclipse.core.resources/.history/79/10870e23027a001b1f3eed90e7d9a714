@@ -1,8 +1,0 @@
-avcify.constraints.username.NotNull.message = Username cannot be null.
-avcify.constraints.username.UniqueUsername.message = This username is in use.
-avcify.constraints.email.NotNull.message = E-mail cannot be null
-avcify.constraints.email.NotAvailableEmail.message = E-mail is not available.
-avcify.constraints.email.UniqueEmail.message = This e-mail is already taken.
-avcify.constraints.password.Pattern.message = Password must have at least 1 uppercase and 1 lovercase letter and 1 number
-avcify.constraints.ProfileImage.message = Unsupported image
-

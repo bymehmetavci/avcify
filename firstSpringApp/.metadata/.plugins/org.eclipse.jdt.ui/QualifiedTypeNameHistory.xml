@@ -16,7 +16,6 @@
     <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
-    <fullyQualifiedTypeName name="com.avcify.ws.announce.Announce"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.avcify.ws.announce.AnnounceRepository"/>
     <fullyQualifiedTypeName name="com.avcify.ws.announce.AnnounceService"/>
@@ -28,4 +27,5 @@
     <fullyQualifiedTypeName name="javax.validation.constraints.Size"/>
     <fullyQualifiedTypeName name="javax.validation.Valid"/>
     <fullyQualifiedTypeName name="javax.persistence.Column"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.announce.Announce"/>
 </qualifiedTypeNameHistroy>

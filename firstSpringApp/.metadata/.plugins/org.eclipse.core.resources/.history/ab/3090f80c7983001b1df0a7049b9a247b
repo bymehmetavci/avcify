@@ -1,0 +1,54 @@
+package com.avcify.ws.announce;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.avcify.ws.announce.vm.AnnounceVM;
+import com.avcify.ws.shared.CurrentUser;
+import com.avcify.ws.shared.GenericResponse;
+import com.avcify.ws.user.User;
+
+@RestController
+@RequestMapping("/api/1.0")
+public class AnnounceController {
+	
+	@Autowired
+	AnnounceService announceService;
+	
+	@PostMapping("/announcements")
+	GenericResponse saveAnnounce(@Valid @RequestBody Announce announce, @CurrentUser User user) {
+		announceService.save(announce, user);
+		return new GenericResponse("Announce is saved.");
+	}
+	
+	@GetMapping("/announcements")
+	Page<AnnounceVM> getAnnouncements(@PageableDefault(sort="id", direction = Direction.DESC) Pageable page) {
+		return announceService.getAnnouncements(page).map(AnnounceVM::new);
+	}
+	
+	@GetMapping("/announcements/{id:[0-9]+}")
+	Page<AnnounceVM> getAnnouncementsRelative(@PageableDefault(sort="id", direction = Direction.DESC) Pageable page, @PathVariable long id) {
+		return announceService.getOldAnnouncements(id, page).map(AnnounceVM::new);
+	}
+	
+	@GetMapping("/users/{username}/announcements")
+	Page<AnnounceVM> getUserAnnouncements(@PathVariable String username, @PageableDefault(sort="id", direction = Direction.DESC) Pageable page) {
+		return announceService.getAnnouncementsOfUser(username, page).map(AnnounceVM::new);
+	}
+	
+	@GetMapping("/users/{username}/announcements/{id:[0-9]+}")
+	Page<AnnounceVM> getUserAnnouncementsRelative(@PathVariable long id, @PathVariable String username, @PageableDefault(sort="id", direction = Direction.DESC) Pageable page) {
+		return announceService.getOldAnnouncementsOfUser(id, username, page).map(AnnounceVM::new);
+	}
+}
