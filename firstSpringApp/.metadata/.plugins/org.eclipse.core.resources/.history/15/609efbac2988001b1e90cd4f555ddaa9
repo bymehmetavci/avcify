@@ -51,17 +51,17 @@ public class AnnounceController {
 			@RequestParam(name="count", required = false, defaultValue = "false") boolean count,
 			@RequestParam(name="direction", defaultValue="before") String direction) {
 		if(count) {
-			long newAnnounceCount = announceService.getNewAnnouncementsCount(id, username);
+			long newAnnounceCount = announceService.getNewAnnounceCount(id);
 			Map<String, Long> response = new HashMap<>();
 			response.put("count", newAnnounceCount);
 			return ResponseEntity.ok(response);
 		}
 		if(direction.equals("after")) {
-			List<AnnounceVM> newAnnouncements = announceService.getNewAnnouncements(id, username, page.getSort())
+			List<AnnounceVM> newAnnouncements = announceService.getNewAnnouncements(id, page.getSort())
 				.stream().map(AnnounceVM::new).collect(Collectors.toList());
 			return ResponseEntity.ok(newAnnouncements);
 		}
-		return ResponseEntity.ok(announceService.getOldAnnouncements(id, username, page).map(AnnounceVM::new));
+		return ResponseEntity.ok(announceService.getOldAnnouncements(id, page).map(AnnounceVM::new));
 	}
 	
 	@GetMapping("/users/{username}/announcements")
@@ -69,7 +69,7 @@ public class AnnounceController {
 		return announceService.getAnnouncementsOfUser(username, page).map(AnnounceVM::new);
 	}
 	
-	/*@GetMapping("/users/{username}/announcements/{id:[0-9]+}")
+	@GetMapping("/users/{username}/announcements/{id:[0-9]+}")
 	ResponseEntity<?> getUserAnnouncementsRelative(@PathVariable long id, @PathVariable String username, 
 			@PageableDefault(sort="id", direction = Direction.DESC) Pageable page,
 			@RequestParam(name="count", required = false, defaultValue = "false") boolean count,
@@ -86,5 +86,5 @@ public class AnnounceController {
 			return ResponseEntity.ok(newAnnouncements);
 		}
 		return ResponseEntity.ok(announceService.getOldAnnouncementsOfUser(id, username, page).map(AnnounceVM::new));
-	}*/
+	}
 }

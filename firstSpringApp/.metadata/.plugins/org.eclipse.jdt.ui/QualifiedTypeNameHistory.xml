@@ -27,5 +27,7 @@
     <fullyQualifiedTypeName name="javax.validation.constraints.Size"/>
     <fullyQualifiedTypeName name="javax.validation.Valid"/>
     <fullyQualifiedTypeName name="javax.persistence.Column"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaSpecificationExecutor"/>
     <fullyQualifiedTypeName name="com.avcify.ws.announce.Announce"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.domain.Specification"/>
 </qualifiedTypeNameHistroy>

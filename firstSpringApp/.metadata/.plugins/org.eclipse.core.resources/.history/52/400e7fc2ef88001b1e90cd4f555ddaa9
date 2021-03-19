@@ -48,11 +48,17 @@ public class AnnounceService {
 
 	public Page<Announce> getOldAnnouncements(long id, String username, Pageable page) {
 		/*
+		Specification<Announce> specIdLessThan = idLessThan(id);
 		if(username != null) {
 			User inDB = userService.getByUsername(username);
-			return announceRepository.findByIdLessThanAndUser(id, inDB, page);
+			Specification<Announce> specUserIs = userIs(inDB);
+			Specification<Announce> spec = specIdLessThan.and(specUserIs);
+			return announceRepository.findAll(spec, page); 
+			//return announceRepository.findByIdLessThanAndUser(id, inDB, page);
 		}
-		return announceRepository.findByIdLessThan(id, page); 
+		Specification<Announce> spec = idLessThan(id);
+		return announceRepository.findAll(spec, page);
+		//return announceRepository.findByIdLessThan(id, page); 
 		*/
 		Specification<Announce> specification = idLessThan(id);
 		if(username != null) {
@@ -62,28 +68,20 @@ public class AnnounceService {
 		return announceRepository.findAll(specification, page);
 	}
 
-	public long getNewAnnouncementsCount(long id, String username) {
-		Specification<Announce> specification = idGreaterThan(id);
+	public long getNewAnnounceCount(long id, String username) {
 		if(username != null) {
 			User inDB = userService.getByUsername(username);
-			specification = specification.and(userIs(inDB));
+			return announceRepository.countByIdGreaterThanAndUser(id, inDB);
 		}
-		return announceRepository.count(specification);
+		return announceRepository.countByIdGreaterThan(id) ;
 	}
 
 	public List<Announce> getNewAnnouncements(long id, String username, Sort sort) {
-		/*if(username != null) {
+		if(username != null) {
 			User inDB = userService.getByUsername(username);
 			return announceRepository.findByIdGreaterThanAndUser(id, inDB, sort);
 		}
 		return announceRepository.findByIdGreaterThan(id, sort);
-		*/
-		Specification<Announce> specification = idGreaterThan(id);
-		if(username != null) {
-			User inDB = userService.getByUsername(username);
-			specification = specification.and(userIs(inDB));
-		}
-		return announceRepository.findAll(specification, sort);
 	}
 	
 	Specification<Announce> idLessThan(long id) {
@@ -95,12 +93,6 @@ public class AnnounceService {
 	Specification<Announce> userIs(User user) {
 		return (root, query, criteriaBuilder) -> {
 			return criteriaBuilder.equal(root.get("user"), user);
-		};
-	}
-	
-	Specification<Announce> idGreaterThan(long id) {
-		return (root, query, criteriaBuilder) -> {
-			return criteriaBuilder.greaterThan(root.get("id"), id);
 		};
 	}
 }
