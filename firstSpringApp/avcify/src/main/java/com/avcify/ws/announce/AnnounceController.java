@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.avcify.ws.announce.vm.AnnounceSubmitVM;
 import com.avcify.ws.announce.vm.AnnounceVM;
 import com.avcify.ws.shared.CurrentUser;
 import com.avcify.ws.shared.GenericResponse;
@@ -34,7 +35,7 @@ public class AnnounceController {
 	AnnounceService announceService;
 	
 	@PostMapping("/announcements")
-	GenericResponse saveAnnounce(@Valid @RequestBody Announce announce, @CurrentUser User user) {
+	GenericResponse saveAnnounce(@Valid @RequestBody AnnounceSubmitVM announce, @CurrentUser User user) {
 		announceService.save(announce, user);
 		return new GenericResponse("Announce is saved.");
 	}
@@ -69,7 +70,9 @@ public class AnnounceController {
 		return announceService.getAnnouncementsOfUser(username, page).map(AnnounceVM::new);
 	}
 	
-	/*@GetMapping("/users/{username}/announcements/{id:[0-9]+}")
+	/**
+	 * Not using with specification.
+	@GetMapping("/users/{username}/announcements/{id:[0-9]+}")
 	ResponseEntity<?> getUserAnnouncementsRelative(@PathVariable long id, @PathVariable String username, 
 			@PageableDefault(sort="id", direction = Direction.DESC) Pageable page,
 			@RequestParam(name="count", required = false, defaultValue = "false") boolean count,

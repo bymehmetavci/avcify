@@ -44,6 +44,9 @@ export const getNewAnnounceCount = (id, username) => {
 export const getNewAnnouncements = (id, username) => {
     const path = username ? `/api/1.0/users/${username}/announcements/${id}?direction=after` : `/api/1.0/announcements/${id}?direction=after`
     return axios.get(path);
+};
+export const postAnnounceAttachment = attachment => {
+    return axios.post('/api/1.0/announce-attachments', attachment);
 }
 
 

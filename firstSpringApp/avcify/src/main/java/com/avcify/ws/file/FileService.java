@@ -7,10 +7,12 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.Date;
 import java.util.UUID;
 
 import org.apache.tika.Tika;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.avcify.ws.configuration.AppConfiguration;
 
@@ -20,11 +22,13 @@ public class FileService {
 	AppConfiguration appConfiguration;
 	
 	Tika tika;
+	FileAttachmentRepository fileAttachmentRepository;
 	
-	public FileService(AppConfiguration appConfiguration) {
+	public FileService(AppConfiguration appConfiguration, FileAttachmentRepository fileAttachmentRepository) {
 		super();
 		this.appConfiguration = appConfiguration;
 		this.tika = new Tika();
+		this.fileAttachmentRepository = fileAttachmentRepository;
 	}
 	
 	public String writeBase64EncodedStringToFile(String image) throws IOException {
@@ -42,12 +46,12 @@ public class FileService {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
 	
-	public void deleteImage(String oldImage) {
-		if(oldImage == null) {
+	public void deleteFile(String oldImageName) {
+		if(oldImageName == null) {
 			return;
 		}
 		try {
-			Files.deleteIfExists(Paths.get(appConfiguration.getUploadPath(), oldImage));
+			Files.deleteIfExists(Paths.get(appConfiguration.getUploadPath(), oldImageName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,5 +59,22 @@ public class FileService {
 	public String detectType(String value) {
 		byte[] base64Encoded = Base64.getDecoder().decode(value);
 		return tika.detect(base64Encoded);
+	}
+
+	public FileAttachment saveAnnounceAttachment(MultipartFile multipartFile) {
+		String fileName = generateRandomName();
+		File target = new File(appConfiguration.getUploadPath() + "/" + fileName);
+		try {
+			OutputStream outputStream = new FileOutputStream(target);
+			outputStream.write(multipartFile.getBytes());
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		FileAttachment attachment = new FileAttachment();
+		attachment.setName(fileName);
+		attachment.setDate(new Date());
+		return fileAttachmentRepository.save(attachment);
+		
 	}
 }

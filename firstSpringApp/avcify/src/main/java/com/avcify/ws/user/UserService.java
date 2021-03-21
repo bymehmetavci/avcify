@@ -1,11 +1,6 @@
 package com.avcify.ws.user;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Base64;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,7 +56,7 @@ public class UserService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			fileService.deleteImage(oldImage);
+			fileService.deleteFile(oldImage);
 		}
 		return userRepository.save(inDB);
 	}

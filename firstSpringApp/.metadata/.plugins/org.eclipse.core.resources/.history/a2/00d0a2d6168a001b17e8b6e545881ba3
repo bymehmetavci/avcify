@@ -1,0 +1,33 @@
+package com.avcify.ws.announce;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.avcify.ws.user.User;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class Announce {
+	
+	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
+	private long id;
+	
+	@Column(length = 1000)
+	private String content;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date addedDate;
+	
+	@ManyToOne
+	private User user;
+}

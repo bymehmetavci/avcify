@@ -1,0 +1,74 @@
+package com.avcify.ws.file;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.UUID;
+
+import org.apache.tika.Tika;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.avcify.ws.configuration.AppConfiguration;
+
+@Service
+public class FileService {
+	
+	AppConfiguration appConfiguration;
+	
+	Tika tika;
+	
+	public FileService(AppConfiguration appConfiguration) {
+		super();
+		this.appConfiguration = appConfiguration;
+		this.tika = new Tika();
+	}
+	
+	public String writeBase64EncodedStringToFile(String image) throws IOException {
+		String fileName = generateRandomName();
+		File target = new File(appConfiguration.getUploadPath() + "/" + fileName);
+		OutputStream outputStream = new FileOutputStream(target);
+		
+		byte[] base64Encoded = Base64.getDecoder().decode(image);
+		outputStream.write(base64Encoded);
+		outputStream.close();
+		return fileName;
+	}
+	
+	public String generateRandomName() {
+		return UUID.randomUUID().toString().replace("-", "");
+	}
+	
+	public void deleteImage(String oldImage) {
+		if(oldImage == null) {
+			return;
+		}
+		try {
+			Files.deleteIfExists(Paths.get(appConfiguration.getUploadPath(), oldImage));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public String detectType(String value) {
+		byte[] base64Encoded = Base64.getDecoder().decode(value);
+		return tika.detect(base64Encoded);
+	}
+
+	public String saveAnnounceAttachement(MultipartFile multipartFile) {
+		String fileName = generateRandomName();
+		File target = new File(appConfiguration.getUploadPath() + "/" + fileName);
+		try {
+			OutputStream outputStream = new FileOutputStream(target);
+			outputStream.write(multipartFile.getBytes());
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileName;
+		
+	}
+}

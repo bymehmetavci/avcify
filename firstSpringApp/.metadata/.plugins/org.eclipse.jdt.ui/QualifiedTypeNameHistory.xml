@@ -11,14 +11,12 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
-    <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="javax.persistence.Entity"/>
     <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.avcify.ws.announce.AnnounceRepository"/>
-    <fullyQualifiedTypeName name="com.avcify.ws.announce.AnnounceService"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.avcify.ws.shared.GenericResponse"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
@@ -30,4 +28,18 @@
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaSpecificationExecutor"/>
     <fullyQualifiedTypeName name="com.avcify.ws.announce.Announce"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.domain.Specification"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.announce.vm.AnnounceVM"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.file.FileAttachmentRepository"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="javax.persistence.OneToOne"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Profile"/>
+    <fullyQualifiedTypeName name="org.springframework.boot.CommandLineRunner"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.user.UserService"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.announce.AnnounceService"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.user.User"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.announce.vm.AnnounceSubmitVM"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.file.FileAttachment"/>
+    <fullyQualifiedTypeName name="com.avcify.ws.file.vm.FileAttachmentVM"/>
 </qualifiedTypeNameHistroy>

@@ -7,12 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 
+import com.avcify.ws.file.FileAttachment;
 import com.avcify.ws.user.User;
 
 import lombok.Data;
@@ -24,7 +24,6 @@ public class Announce {
 	@Id @GeneratedValue (strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Size(min=1, max=1000)
 	@Column(length = 1000)
 	private String content;
 	
@@ -33,4 +32,7 @@ public class Announce {
 	
 	@ManyToOne
 	private User user;
+	
+	@OneToOne(mappedBy = "announce")
+	private FileAttachment fileAttachment; 
 }

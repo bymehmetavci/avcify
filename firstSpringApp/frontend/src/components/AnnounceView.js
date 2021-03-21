@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const AnnounceView = (props) => {
     const {announce} = props;
-    const {user, content, addedDate} =  announce;
+    const {user, content, addedDate, fileAttachment} =  announce;
     const {username, displayName, image} = user;
 
     const {i18n} = useTranslation();
@@ -26,7 +26,14 @@ const AnnounceView = (props) => {
                     </Link>
                 </div>
             </div>
-            {content}
+            <div className="pl-5">
+                {content}
+            </div>
+            {fileAttachment && (
+                <div className="pl-5">
+                    <img className="img-fluid" src={'images/' + fileAttachment.name} alt={content} />
+                </div>
+            )}
         </div>
     );
 };

@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
-import com.avcify.ws.announce.Announce;
 import com.avcify.ws.announce.AnnounceService;
+import com.avcify.ws.announce.vm.AnnounceSubmitVM;
 import com.avcify.ws.user.User;
 import com.avcify.ws.user.UserService;
 
@@ -66,12 +66,11 @@ public class WsApplication {
 				user.setPassword("P4ssword");
 				userService.save(user);
 				for (int j = 1; j<=25; j++) {
-					Announce announce = new Announce();
+					AnnounceSubmitVM announce = new AnnounceSubmitVM();
 					announce.setContent("announce - (" + j + ") from user (" + i +")");
 					announceService.save(announce, user);
 				}
 			}
 		};
-	}
-	*/
+	}*/
 }

@@ -1,0 +1,5 @@
+package com.avcify.ws.file.vm;
+
+public class FileAttachmentVM {
+
+}

@@ -1,0 +1,10 @@
+package com.avcify.ws.announce.vm;
+
+import javax.validation.constraints.Size;
+
+public class AnnounceSubmitVM {
+
+	@Size(min=1, max=1000)
+	private String content;
+	
+}

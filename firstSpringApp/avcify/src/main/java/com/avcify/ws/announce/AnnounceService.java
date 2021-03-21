@@ -2,20 +2,17 @@ package com.avcify.ws.announce;
 
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.util.Streamable;
 import org.springframework.stereotype.Service;
 
+import com.avcify.ws.announce.vm.AnnounceSubmitVM;
+import com.avcify.ws.file.FileAttachment;
+import com.avcify.ws.file.FileAttachmentRepository;
 import com.avcify.ws.user.User;
 import com.avcify.ws.user.UserService;
 
@@ -24,17 +21,27 @@ public class AnnounceService {
 
 	AnnounceRepository announceRepository;
 	UserService userService;
+	FileAttachmentRepository fileAttachmentRepository; 
 
-	public AnnounceService(AnnounceRepository announceRepository, UserService userService) {
+	public AnnounceService(AnnounceRepository announceRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository) {
 		super();
 		this.announceRepository = announceRepository;
 		this.userService = userService;
+		this.fileAttachmentRepository = fileAttachmentRepository;
 	}
 
-	public void save(Announce announce, User user) {
+	public void save(AnnounceSubmitVM announceSubmitVM, User user) {
+		Announce announce = new Announce();
+		announce.setContent(announceSubmitVM.getContent());
 		announce.setAddedDate(new Date());
 		announce.setUser(user);
 		announceRepository.save(announce);
+		Optional<FileAttachment> optionalfileAttachment = fileAttachmentRepository.findById(announceSubmitVM.getAttachmentId());
+		if(optionalfileAttachment.isPresent()) {
+			FileAttachment fileAttachment = optionalfileAttachment.get();
+			fileAttachment.setAnnounce(announce);
+			fileAttachmentRepository.save(fileAttachment);
+		}
 	}
 
 	public Page<Announce> getAnnouncements(Pageable page) {
@@ -47,7 +54,8 @@ public class AnnounceService {
 	}
 
 	public Page<Announce> getOldAnnouncements(long id, String username, Pageable page) {
-		/*
+		/**
+		 * Not using with specification.
 		if(username != null) {
 			User inDB = userService.getByUsername(username);
 			return announceRepository.findByIdLessThanAndUser(id, inDB, page);
@@ -72,7 +80,9 @@ public class AnnounceService {
 	}
 
 	public List<Announce> getNewAnnouncements(long id, String username, Sort sort) {
-		/*if(username != null) {
+		/**
+		 * Not using with specification.
+		if(username != null) {
 			User inDB = userService.getByUsername(username);
 			return announceRepository.findByIdGreaterThanAndUser(id, inDB, sort);
 		}
