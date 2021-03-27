@@ -28,7 +28,11 @@ i18n.use(initReactI18next).init({
                 'My Profile' : 'My Profile',
                 'There are no announcements in your timeline' : 'There are no announcements in your timeline',
                 'Load old announcements' : 'Load old announcements',
-                'There are new announcements' : 'There are new announcements'
+                'There are new announcements' : 'There are new announcements',
+                'Delete Announce' : 'Delete Announce',
+                'Are you sure to delete announce?' : 'Are you sure to delete announce?',
+                'Delete My Account' : 'Delete My Account',
+                'Are you sure to delete your account?' : 'Are you sure to delete your account?'
             }
         },
         tr: {
@@ -55,7 +59,11 @@ i18n.use(initReactI18next).init({
                 'My Profile' : 'Hesabım',
                 'There are no announcements in your timeline' : 'Zaman çizelgenizde ilan bulunamadı',
                 'Load old announcements' : 'Önceki ilanları yükle',
-                'There are new announcements' : 'Yeni bir ilan var'
+                'There are new announcements' : 'Yeni bir ilan var',
+                'Delete Announce' : 'İlanı Sil',
+                'Are you sure to delete announce?' : 'Bu ilanı silmek istediğinizden emin misiniz?',
+                'Delete My Account' : 'Hesabımı Kaldır',
+                'Are you sure to delete your account?' : 'Hesabınız tamamen kaldırılacaktır. Bu işlemi onaylamanız durumunda geri alması mümkün olmayacaktır. İşlemi onaylamak istediğinizden emin misiniz?'
             }
         }
     },

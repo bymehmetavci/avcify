@@ -24,7 +24,7 @@ public class FileCleanupService {
 		List<FileAttachment> filesToBeDeleted = fileAttachmentRepository.findByDateBeforeAndAnnounceIsNull(twentyFourHoursAgo);
 		for(FileAttachment file: filesToBeDeleted) {
 			// delete file
-			fileService.deleteFile(file.getName());
+			fileService.deleteAttachmentFile(file.getName());
 			// delete from db
 			fileAttachmentRepository.deleteById(file.getId());
 		}

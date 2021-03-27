@@ -69,6 +69,13 @@ const AnnounceFeed = () => {
             content: [...response.data, ...previousAnnouncePage.content]
         }));
         setNewAnnounceCount(0);
+    };
+
+    const onDeleteAnnounceSuccess = id => {
+        setAnnouncePage(previousAnnouncePage => ({
+            ...previousAnnouncePage,
+            content: previousAnnouncePage.content.filter((announce) => announce.id !== id)
+        }));
     }
 
     const {content, last} = announcePage;
@@ -88,7 +95,7 @@ const AnnounceFeed = () => {
                 </div>
             )}
             {content.map(announce => {
-                return <AnnounceView key={announce.id} announce={announce}/>;
+                return <AnnounceView key={announce.id} announce={announce} onDeleteAnnounce={onDeleteAnnounceSuccess}/>;
             })}
             {!last && (
                 <div 

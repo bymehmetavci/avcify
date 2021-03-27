@@ -1,0 +1,28 @@
+package com.avcify.ws.announce;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.avcify.ws.user.User;
+
+@Service
+public class AnnounceSecurityService {
+	
+	@Autowired
+	AnnounceRepository announceRepository; 
+	
+	public boolean isAllowedToDelete(long id, User loggedInUser) {
+		Optional<Announce> optionalAnnounce = announceRepository.findById(id);
+		if(optionalAnnounce.isPresent()) {
+			return false;
+		}
+		Announce announce = optionalAnnounce.get();
+		if(announce.getUser().getId() != loggedInUser.getId()) {
+			return false;
+		}
+		return true;
+	}
+	
+}

@@ -1,7 +1,6 @@
 package com.avcify.ws.announce.vm;
 
 import com.avcify.ws.announce.Announce;
-import com.avcify.ws.file.FileAttachment;
 import com.avcify.ws.file.vm.FileAttachmentVM;
 import com.avcify.ws.user.wm.UserVM;
 

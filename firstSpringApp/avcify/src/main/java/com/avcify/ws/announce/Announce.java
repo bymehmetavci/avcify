@@ -2,6 +2,7 @@ package com.avcify.ws.announce;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,6 @@ public class Announce {
 	@ManyToOne
 	private User user;
 	
-	@OneToOne(mappedBy = "announce")
+	@OneToOne(mappedBy = "announce", cascade = CascadeType.REMOVE)
 	private FileAttachment fileAttachment; 
 }

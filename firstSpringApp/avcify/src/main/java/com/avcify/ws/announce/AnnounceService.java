@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.avcify.ws.announce.vm.AnnounceSubmitVM;
 import com.avcify.ws.file.FileAttachment;
 import com.avcify.ws.file.FileAttachmentRepository;
+import com.avcify.ws.file.FileService;
 import com.avcify.ws.user.User;
 import com.avcify.ws.user.UserService;
 
@@ -22,14 +23,17 @@ public class AnnounceService {
 	AnnounceRepository announceRepository;
 	UserService userService;
 	FileAttachmentRepository fileAttachmentRepository; 
+	FileService fileService;
 
-	public AnnounceService(AnnounceRepository announceRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository) {
+	public AnnounceService(AnnounceRepository announceRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository
+			,FileService fileService) {
 		super();
 		this.announceRepository = announceRepository;
-		this.userService = userService;
 		this.fileAttachmentRepository = fileAttachmentRepository;
+		this.fileService = fileService;
+		this.userService = userService;
 	}
-
+	
 	public void save(AnnounceSubmitVM announceSubmitVM, User user) {
 		Announce announce = new Announce();
 		announce.setContent(announceSubmitVM.getContent());
@@ -112,5 +116,14 @@ public class AnnounceService {
 		return (root, query, criteriaBuilder) -> {
 			return criteriaBuilder.greaterThan(root.get("id"), id);
 		};
+	}
+
+	public void delete(long id) {
+		Announce inDB = announceRepository.getOne(id);
+		if(inDB.getFileAttachment() != null) {
+			String fileName = inDB.getFileAttachment().getName();
+			fileService.deleteAttachmentFile(fileName);
+		}
+		announceRepository.deleteById(id);
 	}
 }
