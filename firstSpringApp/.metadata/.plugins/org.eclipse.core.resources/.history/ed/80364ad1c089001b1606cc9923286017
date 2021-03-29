@@ -1,5 +1,0 @@
-package com.avcify.ws.file;
-
-public interface FileAttachmentRepository {
-
-}

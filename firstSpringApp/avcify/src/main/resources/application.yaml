@@ -1,9 +1,5 @@
-spring:
-  datasource:
-    url: jdbc:h2:./devdb
+ spring:
   jpa:
-    hibernate:
-      ddl-auto: update
     properties:
       javax:
         persistence:
@@ -28,5 +24,11 @@ avcify:
 ---
 spring:
   profiles: dev
+  datasource:
+    url: jdbc:h2:./devdb
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: update
 avcify:
   upload-path: storage-dev

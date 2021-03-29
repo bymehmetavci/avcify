@@ -7,7 +7,7 @@ import { setAuthorizationHeader } from "../api/apiCalls";
 const secureLs = new SecureLS();
 
 const getStateFromStorage = () => {
-    const avcAuth = secureLs.get('avc-auth'); //localStorage.getItem('avc-auth');
+    const avcAuth = secureLs.get('avc-auth');
     let stateInLocalStorage = {
         isLoggedIn : false,
         username: undefined,

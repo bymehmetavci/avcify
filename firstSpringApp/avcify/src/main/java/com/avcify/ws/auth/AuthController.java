@@ -1,26 +1,28 @@
 package com.avcify.ws.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.avcify.ws.shared.CurrentUser;
-import com.avcify.ws.user.User;
-import com.avcify.ws.user.UserRepository;
-import com.avcify.ws.user.wm.UserVM;
+import com.avcify.ws.shared.GenericResponse;
 
 @RestController
 public class AuthController {
 	
 	@Autowired
-	UserRepository userRepository;
-	
-	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	AuthService authService;
 	
 	@PostMapping("/api/1.0/auth")
-	UserVM handleAuthentication(@CurrentUser User user) {
-		return new UserVM(user);
+	AuthResponse handleAuthentication(@RequestBody Credentials credentials) {
+		return authService.authenticate(credentials);
+	}
+	
+	@PostMapping("/api/1.0/logout")
+	GenericResponse handleLogout(@RequestHeader(name = "Authorization") String authorization) {
+		String token = authorization.substring(7);
+		authService.clearToken(token);
+		return new GenericResponse("Logout success");
 	}
 }

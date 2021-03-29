@@ -1,0 +1,15 @@
+package com.avcify.ws.auth;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+import com.avcify.ws.user.User;
+
+@Entity
+public class Token {
+	
+	private String token;
+	
+	@ManyToOne
+	private User user;
+}

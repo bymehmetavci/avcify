@@ -19,6 +19,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.avcify.ws.announce.Announce;
+import com.avcify.ws.auth.Token;
 
 import lombok.Data;
 
@@ -58,6 +59,9 @@ public class User implements UserDetails{
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
 	private List<Announce> announcements;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+	private List<Token> tokens;
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
